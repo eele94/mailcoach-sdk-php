@@ -23,21 +23,21 @@ trait ManagesSubscribers
 
     public function subscriber(string $uuid): Subscriber
     {
-        $attributes = $this->get("subscribers/{$uuid}")['data'];
+        $attributes = $this->get("subscribers/{$uuid}");
 
         return new Subscriber($attributes, $this);
     }
 
     public function createSubscriber(string $emailListUuid, array $attributes): Subscriber
     {
-        $attributes = $this->post("email-lists/{$emailListUuid}/subscribers", $attributes)['data'];
+        $attributes = $this->post("email-lists/{$emailListUuid}/subscribers", $attributes);
 
         return new Subscriber($attributes, $this);
     }
 
     public function findByEmail(string $emailListUuid, string $email): ?Subscriber
     {
-        $subscribers = $this->get("email-lists/{$emailListUuid}/subscribers?filter[email]={$email}")['data'];
+        $subscribers = $this->get("email-lists/{$emailListUuid}/subscribers?filter[email]={$email}");
 
         if (count($subscribers) === 0) {
             return null;
@@ -48,7 +48,7 @@ trait ManagesSubscribers
 
     public function updateSubscriber(string $subscriberUuid, array $attributes): Subscriber
     {
-        $attributes = $this->patch("subscribers/{$subscriberUuid}", $attributes)['data'];
+        $attributes = $this->patch("subscribers/{$subscriberUuid}", $attributes);
 
         return new Subscriber($attributes, $this);
     }
